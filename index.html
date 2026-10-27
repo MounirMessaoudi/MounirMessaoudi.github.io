@@ -88,7 +88,7 @@ nav a {
 }
 nav a:hover { color: var(--fg); background: var(--surface); }
 nav a[aria-current="page"] { color: var(--accent); background: var(--accent-soft); }
-.right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.right { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; width: 100%; }
 .theme {
   font: inherit; font-size: 0.88rem; font-weight: 600;
   display: inline-flex; align-items: center; gap: 6px;
@@ -195,7 +195,6 @@ footer { border-top: 1px solid var(--line); color: var(--muted); font-size: 0.88
 <script>try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
 <header class="masthead">
   <div class="wrap">
-    <a class="brand" href="#home">Mounir Messaoudi</a>
     <div class="right">
     <nav aria-label="Main">
       <a href="#home" data-nav="home">Home</a>
