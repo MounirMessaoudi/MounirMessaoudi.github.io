@@ -109,12 +109,12 @@ main { padding-block: 40px 56px; }
 .view[hidden] { display: none !important; }
 
 /* Intro: text on the left, rectangular portrait on the right */
-.intro { display: grid; grid-template-columns: minmax(0, 1fr) 270px; gap: 40px; align-items: start; }
+.intro { display: flow-root; }
 .intro-text { min-width: 0; }
 .name { font-family: var(--font-display); font-weight: 600; font-size: 2.7rem; line-height: 1.1; margin: 0 0 6px; text-wrap: balance; }
 .role { color: var(--muted); margin: 0 0 22px; font-size: 1.02rem; }
-.portrait { margin: 6px 0 0; }
-.portrait img { display: block; width: 100%; height: auto; max-height: 420px; object-fit: cover; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); }
+.portrait { float: right; width: 280px; margin: 4px 0 16px 32px; padding: 8px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+.portrait img { display: block; width: 100%; height: auto; max-height: 420px; object-fit: cover; border-radius: 6px; background: var(--bg); }
 .portrait figcaption { margin-top: 8px; font-size: 0.9rem; color: var(--muted); }
 .avail { margin: 18px 0 0; padding: 10px 14px; border-radius: 6px; background: var(--accent-soft); font-size: 0.97rem; }
 .avail strong { color: var(--accent); }
@@ -206,8 +206,7 @@ footer .contact span { user-select: all; overflow-wrap: anywhere; }
 @media (max-width: 760px) {
   body { font-size: 16.5px; }
   main { padding-block: 28px 44px; }
-  .intro { grid-template-columns: minmax(0, 1fr); gap: 22px; }
-  .portrait { order: -1; max-width: 340px; }
+  .portrait { float: none; width: 100%; max-width: 340px; margin: 0 0 20px; }
   .name { font-size: 2.15rem; }
   h2.title { font-size: 1.65rem; }
   .news { grid-template-columns: minmax(0, 1fr); gap: 2px; }
@@ -239,6 +238,10 @@ footer .contact span { user-select: all; overflow-wrap: anywhere; }
   <!-- HOME -->
   <section class="view" id="view-home" data-view="home">
     <div class="intro">
+      <figure class="portrait">
+        <!-- Photo: add a file named photo.jpg next to index.html. Without it, this block is removed. -->
+        <img src="photo.jpg" alt="Mounir Messaoudi rowing" onerror="this.closest('figure').remove()">
+      </figure>
       <div class="intro-text">
         <h1 class="name">Mounir Messaoudi</h1>
         <p class="role">PhD student, Team SAIRPICO, Inria, University of Rennes · Rennes, France</p>
@@ -255,10 +258,6 @@ footer .contact span { user-select: all; overflow-wrap: anywhere; }
 
         <p class="avail"><strong>Available from September 2027</strong></p>
       </div>
-      <figure class="portrait">
-        <!-- Photo: add a file named photo.jpg next to index.html. Without it, this block is removed. -->
-        <img src="photo.jpg" alt="Mounir Messaoudi rowing" onerror="this.closest('figure').remove()">
-      </figure>
     </div>
 
     <h3>Research interests</h3>
