@@ -207,6 +207,16 @@ ul.plain li { margin-bottom: 6px; }
 .preview img { display: block; max-width: 100%; max-height: 300px; width: auto; height: auto; border-radius: 4px; background: #fff; }
 [data-preview] { cursor: pointer; }
 
+.dl-wrap { margin: 16px 0 0; }
+.dl {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-weight: 700; font-size: 0.97rem; text-decoration: none;
+  padding: 8px 16px; border-radius: 6px;
+  background: var(--accent); color: var(--on-accent); border: 1px solid var(--accent);
+}
+.dl:hover { filter: brightness(1.12); text-decoration: none; }
+.dl svg { width: 18px; height: 18px; flex: none; }
+
 /* Footer */
 footer { border-top: 1px solid var(--line); color: var(--muted); font-size: 0.92rem; padding-block: 24px 32px; }
 .social { display: flex; flex-wrap: wrap; gap: 8px 20px; margin: 0 0 14px; }
@@ -272,6 +282,7 @@ footer .contact span { user-select: all; overflow-wrap: anywhere; }
         <p>Outside of research, I enjoy rowing, alone at sunset and in a crew to cross the rivers of Europe! Paris done, next one Amsterdam!</p>
 
         <p class="avail"><strong>Available from September 2027</strong></p>
+        <p class="dl-wrap"><a class="dl" href="Mounir_Messaoudi_CV.pdf" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4M4 20h16"/></svg>Download CV (PDF)</a></p>
       </div>
     </div>
 
@@ -346,6 +357,7 @@ footer .contact span { user-select: all; overflow-wrap: anywhere; }
   <!-- CV -->
   <section class="view" id="view-cv" data-view="cv" hidden>
     <h2 class="title">CV</h2>
+    <p class="dl-wrap"><a class="dl" href="Mounir_Messaoudi_CV.pdf" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4M4 20h16"/></svg>Download CV (PDF)</a></p>
 
     <h3>Education</h3>
     <div class="entry">
