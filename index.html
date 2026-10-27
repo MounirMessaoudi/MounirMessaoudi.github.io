@@ -1,0 +1,385 @@
+<title>Mounir Messaoudi</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:wght@500;600&display=swap">
+<style>
+/* Layout: academic-pages style. Sticky top nav, left author sidebar, one content view per hash (home, cv, publications, teaching). */
+:root {
+  --bg: #ffffff;
+  --surface: #f4f6f9;
+  --fg: #1d232b;
+  --muted: #5b6672;
+  --line: #dde3ea;
+  --accent: #1f3a5f;
+  --accent-soft: #e6edf6;
+  --on-accent: #ffffff;
+  --font-display: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-body: "Source Sans 3", system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12161b;
+    --surface: #1a2027;
+    --fg: #e6eaef;
+    --muted: #9aa5b1;
+    --line: #2b343e;
+    --accent: #8fb3e6;
+    --accent-soft: #1f2a38;
+    --on-accent: #12161b;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #12161b;
+  --surface: #1a2027;
+  --fg: #e6eaef;
+  --muted: #9aa5b1;
+  --line: #2b343e;
+  --accent: #8fb3e6;
+  --accent-soft: #1f2a38;
+  --on-accent: #12161b;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px);
+  z-index: 10;
+  background: var(--bg);
+}
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+
+.wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* Top navigation */
+.masthead {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 20;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+.masthead .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-block: 10px; }
+.brand { font-family: var(--font-display); font-weight: 600; font-size: 1.05rem; color: var(--fg); text-decoration: none; }
+nav { display: flex; gap: 4px; flex-wrap: wrap; }
+nav a {
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 6px 12px;
+  border-radius: 4px;
+}
+nav a:hover { color: var(--fg); background: var(--surface); }
+nav a[aria-current="page"] { color: var(--accent); background: var(--accent-soft); }
+
+/* Page grid */
+.page { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 48px; padding-block: 36px 64px; align-items: start; }
+.sidebar { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 72px); min-width: 0; }
+.avatar {
+  width: 124px; height: 124px; border-radius: 50%;
+  background: var(--accent); color: var(--on-accent);
+  display: grid; place-items: center;
+  font-family: var(--font-display); font-weight: 600; font-size: 2.6rem; letter-spacing: 0.02em;
+}
+.sidebar h1 { font-family: var(--font-display); font-weight: 600; font-size: 1.5rem; line-height: 1.2; margin: 18px 0 4px; text-wrap: balance; }
+.tagline { color: var(--muted); margin: 0 0 16px; font-size: 0.98rem; }
+.follow-label { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.09em; color: var(--muted); font-weight: 700; margin: 0 0 6px; }
+.follow { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-size: 0.95rem; }
+.follow li { overflow-wrap: anywhere; }
+.follow .k { color: var(--muted); display: inline-block; min-width: 4.6em; }
+.copy {
+  font: inherit; font-size: 0.8rem; font-weight: 600;
+  margin-left: 6px; padding: 1px 8px;
+  border: 1px solid var(--line); border-radius: 4px;
+  background: var(--surface); color: var(--fg); cursor: pointer;
+}
+.copy:hover { border-color: var(--accent); color: var(--accent); }
+.avail {
+  margin-top: 18px; padding: 10px 12px; border-radius: 6px;
+  background: var(--accent-soft); color: var(--fg); font-size: 0.93rem;
+}
+.avail strong { color: var(--accent); }
+
+/* Content */
+main { min-width: 0; max-width: 720px; }
+.view[hidden] { display: none !important; }
+h2.title { font-family: var(--font-display); font-weight: 600; font-size: 2rem; line-height: 1.2; margin: 0 0 20px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+h3 { font-family: var(--font-display); font-weight: 600; font-size: 1.3rem; margin: 34px 0 12px; }
+h3:first-of-type { margin-top: 8px; }
+p { margin: 0 0 14px; }
+ul.plain { margin: 0; padding-left: 1.2em; }
+ul.plain li { margin-bottom: 6px; }
+
+.entry { padding: 0 0 20px; }
+.entry + .entry { border-top: 1px solid var(--line); padding-top: 18px; }
+.entry-head { display: flex; justify-content: space-between; gap: 4px 16px; flex-wrap: wrap; align-items: baseline; }
+.entry-title { font-weight: 700; margin: 0; }
+.entry-date { color: var(--muted); font-size: 0.93rem; font-variant-numeric: tabular-nums; }
+.entry-sub { color: var(--muted); font-style: italic; margin: 0 0 6px; font-size: 0.97rem; }
+.entry ul { margin: 6px 0 0; padding-left: 1.2em; }
+.entry li { margin-bottom: 4px; }
+
+.pub { padding: 0 0 22px; }
+.pub + .pub { border-top: 1px solid var(--line); padding-top: 20px; }
+.pub-title { font-weight: 700; margin: 0 0 2px; font-size: 1.05rem; text-wrap: balance; }
+.pub-authors { margin: 0 0 2px; }
+.pub-authors b { font-weight: 700; }
+.pub-venue { margin: 0 0 8px; font-style: italic; color: var(--muted); }
+.row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.badge {
+  font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
+  padding: 2px 9px; border-radius: 999px; background: var(--accent); color: var(--on-accent);
+}
+.btn {
+  font-size: 0.85rem; font-weight: 600; text-decoration: none;
+  padding: 2px 10px; border: 1px solid var(--line); border-radius: 4px; color: var(--fg); background: var(--surface);
+}
+.btn:hover { border-color: var(--accent); color: var(--accent); }
+.also { margin: 8px 0 0; font-size: 0.9rem; color: var(--muted); }
+
+.ref { display: flex; justify-content: space-between; gap: 2px 16px; flex-wrap: wrap; padding: 10px 0; }
+.ref + .ref { border-top: 1px solid var(--line); }
+.ref .who { font-weight: 700; margin: 0; }
+.ref .role { color: var(--muted); margin: 0; font-size: 0.95rem; }
+.ref .mail { margin: 0; font-size: 0.95rem; overflow-wrap: anywhere; user-select: all; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; margin: 0 0 14px; }
+.chips li { padding: 3px 11px; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; font-size: 0.93rem; }
+
+footer { border-top: 1px solid var(--line); color: var(--muted); font-size: 0.88rem; padding-block: 20px 28px; }
+
+@media (max-width: 820px) {
+  body { font-size: 16.5px; }
+  .page { grid-template-columns: minmax(0, 1fr); gap: 28px; padding-block: 24px 48px; }
+  .sidebar { position: static; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 18px; align-items: center; }
+  .avatar { grid-row: span 2; width: 88px; height: 88px; font-size: 1.9rem; }
+  .sidebar h1 { margin: 0; font-size: 1.35rem; }
+  .tagline { margin: 0; }
+  .sidebar .more { grid-column: 1 / -1; margin-top: 12px; }
+  h2.title { font-size: 1.65rem; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .view { animation: fade 0.18s ease-out; }
+  @keyframes fade { from { opacity: 0.4; } to { opacity: 1; } }
+}
+</style>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="brand" href="#home">Mounir Messaoudi</a>
+    <nav aria-label="Main">
+      <a href="#home" data-nav="home">Home</a>
+      <a href="#cv" data-nav="cv">CV</a>
+      <a href="#publications" data-nav="publications">Publications</a>
+      <a href="#teaching" data-nav="teaching">Teaching</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap page">
+  <aside class="sidebar">
+    <div class="avatar" aria-hidden="true">MM</div>
+    <h1>Mounir Messaoudi</h1>
+    <p class="tagline">PhD candidate, deep learning for biomedical image analysis</p>
+    <div class="more">
+      <p class="follow-label">Find me</p>
+      <ul class="follow">
+        <li><span class="k">Location</span>Rennes, France</li>
+        <li><span class="k">Team</span>SAIRPICO, Inria, University of Rennes</li>
+        <li><span class="k">Email</span><span id="mail">mounir.messaoudi45@gmail.com</span><button class="copy" id="copyMail" type="button">Copy</button></li>
+        <li><span class="k">Profiles</span><a href="https://www.linkedin.com/in/mounir-messaoudi-9a11271a6">LinkedIn</a> · <a href="https://scholar.google.com/citations?user=E_fav18AAAAJ&amp;hl=fr">Google Scholar</a></li>
+      </ul>
+      <p class="avail"><strong>Available from September 2027</strong> for a postdoctoral position.</p>
+    </div>
+  </aside>
+
+  <main>
+    <!-- HOME -->
+    <section class="view" id="view-home" data-view="home">
+      <h2 class="title">About me</h2>
+      <p>I am a PhD candidate in the SAIRPICO team at Inria and the University of Rennes, supervised by Charles Kervrann. My thesis develops deep learning methods to identify and localize macromolecules in 3D cryo-electron tomograms.</p>
+      <p>My interest in medical imaging started during my master's thesis at the Centre for Computational Biology (CBIO, MINES Paris) and Institut Curie, where I worked on quantifying breast cancer aggressiveness from IHC images and discussed the data with pathologists. I now want to work closer to clinicians and patients, on diagnosis and analysis.</p>
+      <p>My PhD defense is planned for April to May 2027, and I am looking for a postdoctoral position starting in September 2027.</p>
+
+      <h3>Research interests</h3>
+      <ul class="chips">
+        <li>Deep learning for image analysis</li>
+        <li>Robustness and invariance</li>
+        <li>Cryo-electron tomography</li>
+        <li>Particle picking</li>
+        <li>Computational pathology</li>
+        <li>Self-supervised learning</li>
+      </ul>
+
+      <h3>Latest</h3>
+      <ul class="plain">
+        <li>2026: oral presentation at ISBI 2026 on anisotropy-aware particle picking in cryo-ET. <a href="#publications">See publications</a>.</li>
+        <li>2026: poster at ICLR 2026 on affine-invariant networks for photometric corruption robustness.</li>
+        <li>2025 and 2026: lectures on Introduction to Computer Vision at CY Tech and the University of Rennes.</li>
+      </ul>
+    </section>
+
+    <!-- CV -->
+    <section class="view" id="view-cv" data-view="cv" hidden>
+      <h2 class="title">CV</h2>
+
+      <h3>Education</h3>
+      <div class="entry">
+        <div class="entry-head"><p class="entry-title">PhD in Deep Learning and Biomedical Image Analysis</p><span class="entry-date">2024 – 2027 (expected)</span></div>
+        <p class="entry-sub">Inria, University of Rennes · SAIRPICO team · Rennes, France</p>
+        <ul>
+          <li>Thesis topic: deep learning methods for the identification and localization of macromolecules in 3D cryo-electron tomograms.</li>
+          <li>Supervisor: Charles Kervrann. Two publications, see <a href="#publications">Publications</a>.</li>
+        </ul>
+      </div>
+      <div class="entry">
+        <div class="entry-head"><p class="entry-title">M.Sc. in Artificial Intelligence, Systems, Data (M2 IASD)</p><span class="entry-date">2022 – 2023</span></div>
+        <p class="entry-sub">Paris Dauphine University – PSL, with École Normale Supérieure and MINES Paris · Paris, France</p>
+      </div>
+      <div class="entry">
+        <div class="entry-head"><p class="entry-title">M.Sc. 1 in Computer Science and Engineering (Erasmus)</p><span class="entry-date">2021</span></div>
+        <p class="entry-sub">Polytechnic University of Milan · Milan, Italy</p>
+      </div>
+      <div class="entry">
+        <div class="entry-head"><p class="entry-title">Engineering Degree, Applied Mathematics and Computer Science (Data Science)</p><span class="entry-date">2017 – 2022</span></div>
+        <p class="entry-sub">CY Tech · Cergy, France</p>
+      </div>
+
+      <h3>Research and professional experience</h3>
+      <div class="entry">
+        <div class="entry-head"><p class="entry-title">Research Intern in Computer Vision</p><span class="entry-date">03/2023 – 09/2023</span></div>
+        <p class="entry-sub">Institut Curie and Centre for Computational Biology (CBIO), MINES Paris · Paris, France</p>
+        <ul><li>Master's thesis: deep learning method to quantify breast cancer aggressiveness from IHC images.</li></ul>
+      </div>
+      <div class="entry">
+        <div class="entry-head"><p class="entry-title">Data Scientist</p><span class="entry-date">09/2021 – 09/2022</span></div>
+        <p class="entry-sub">IBM Interactive, an IBM Company · Paris, France</p>
+        <ul><li>Graduation thesis (engineering degree): diagnostics and automatic enhancement of IBM Watson chatbots.</li></ul>
+      </div>
+
+      <h3>Skills, languages and interests</h3>
+      <ul class="plain">
+        <li><b>Technical skills:</b> Python, PyTorch, TensorFlow, Git/GitHub.</li>
+        <li><b>Languages:</b> French (fluent), English (fluent).</li>
+        <li><b>Interests:</b> Rowing (Paris Crossing 2026; Amsterdam Tulip Crossing 2027, planned) and swimming.</li>
+      </ul>
+
+      <h3>References</h3>
+      <div class="ref">
+        <div><p class="who">Charles Kervrann</p><p class="role">PhD supervisor</p></div>
+        <p class="mail">charles.kervrann@inria.fr</p>
+      </div>
+      <div class="ref">
+        <div><p class="who">Anaïs Badoual</p><p class="role">Permanent member of the SAIRPICO team, co-author</p></div>
+        <p class="mail">anais.badoual@inria.fr</p>
+      </div>
+      <div class="ref">
+        <div><p class="who">Sébastien Herbreteau</p><p class="role">Co-author</p></div>
+        <p class="mail">sebastien.herbreteau@ensai.fr</p>
+      </div>
+    </section>
+
+    <!-- PUBLICATIONS -->
+    <section class="view" id="view-publications" data-view="publications" hidden>
+      <h2 class="title">Publications</h2>
+      <p>Full list on <a href="https://scholar.google.com/citations?user=E_fav18AAAAJ&amp;hl=fr">Google Scholar</a>.</p>
+
+      <article class="pub">
+        <p class="pub-title">Anisotropy-Aware Strategy for Robust Deep Learning-Based Particle Picking in 3D Cellular Cryo-Electron Tomogram</p>
+        <p class="pub-authors"><b>M. Messaoudi</b>, C. Kervrann</p>
+        <p class="pub-venue">2026 IEEE 23rd International Symposium on Biomedical Imaging (ISBI), pp. 1–5, 2026</p>
+        <div class="row">
+          <span class="badge">Oral session</span>
+          <a class="btn" href="https://ieeexplore.ieee.org/abstract/document/11515672">PDF</a>
+          <a class="btn" href="https://doi.org/10.1109/ISBI61048.2026.11515672">DOI</a>
+        </div>
+        <p class="also">Also presented at IABM 2026, Life Science PhD Symposium (3rd Edition, 2026), and AI WILD West 2026.</p>
+      </article>
+
+      <article class="pub">
+        <p class="pub-title">Designing Affine-Invariant Neural Networks for Photometric Corruption Robustness and Generalization</p>
+        <p class="pub-authors"><b>M. Messaoudi</b>, Q. Rapilly, S. Herbreteau, A. Badoual, C. Kervrann</p>
+        <p class="pub-venue">International Conference on Learning Representations (ICLR), pp. 124211–124271, 2026</p>
+        <div class="row">
+          <span class="badge">Poster session</span>
+          <a class="btn" href="https://proceedings.iclr.cc/paper_files/paper/2026/file/c9c54ac0dd5e942b99b2b51c297544fd-Paper-Conference.pdf">PDF</a>
+        </div>
+        <p class="also">Also presented at CAP &amp; RFIAP 2026 and Life Science PhD Symposium (3rd Edition, 2026).</p>
+      </article>
+    </section>
+
+    <!-- TEACHING -->
+    <section class="view" id="view-teaching" data-view="teaching" hidden>
+      <h2 class="title">Teaching</h2>
+      <div class="entry">
+        <div class="entry-head"><p class="entry-title">Introduction to Computer Vision</p><span class="entry-date">2025, 2026</span></div>
+        <p class="entry-sub">Lectures · 20 h per year in each programme</p>
+        <ul>
+          <li>M2 Mathematical Engineering, CY Tech engineering school.</li>
+          <li>M2 Applied Mathematics and Statistics, University of Rennes.</li>
+        </ul>
+      </div>
+      <div class="entry">
+        <div class="entry-head"><p class="entry-title">Python</p><span class="entry-date">2025</span></div>
+        <p class="entry-sub">Practical sessions · L3 Computer Science, ISTIC, University of Rennes</p>
+      </div>
+    </section>
+  </main>
+</div>
+
+<footer>
+  <div class="wrap">© Mounir Messaoudi · Inria, University of Rennes</div>
+</footer>
+
+<script>
+(function () {
+  var views = ["home", "cv", "publications", "teaching"];
+  function show() {
+    var name = (location.hash || "").replace("#", "");
+    if (views.indexOf(name) === -1) name = "home";
+    document.querySelectorAll("[data-view]").forEach(function (el) {
+      el.hidden = el.getAttribute("data-view") !== name;
+    });
+    document.querySelectorAll("[data-nav]").forEach(function (a) {
+      if (a.getAttribute("data-nav") === name) a.setAttribute("aria-current", "page");
+      else a.removeAttribute("aria-current");
+    });
+    window.scrollTo(0, 0);
+  }
+  window.addEventListener("hashchange", show);
+  show();
+
+  var btn = document.getElementById("copyMail");
+  var mail = document.getElementById("mail");
+  function selectMail() {
+    var r = document.createRange();
+    r.selectNodeContents(mail);
+    var s = window.getSelection();
+    s.removeAllRanges();
+    s.addRange(r);
+  }
+  btn.addEventListener("click", function () {
+    var done = function () { btn.textContent = "Copied"; setTimeout(function () { btn.textContent = "Copy"; }, 1500); };
+    try {
+      navigator.clipboard.writeText(mail.textContent).then(done, function () { selectMail(); btn.textContent = "Selected"; });
+    } catch (e) { selectMail(); btn.textContent = "Selected"; }
+  });
+})();
+</script>
