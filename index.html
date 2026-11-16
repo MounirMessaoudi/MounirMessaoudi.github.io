@@ -16,7 +16,7 @@
 <style>html{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:wght@500;600&display=swap">
 <style>
-/* Layout: single centered column, like an academic-pages / al-folio home. Top nav, intro with portrait on the right, news, selected publications, footer. One view per hash: home, cv, publications, teaching. */
+/* Layout: single centered column, one scrolling page. Sticky top nav with anchors (home, news, publications, teaching) and a CV download button. */
 :root {
   --bg: #ffffff;
   --surface: #f4f6f9;
@@ -52,6 +52,8 @@
 }
 
 * { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 body {
   background: var(--bg);
   color: var(--fg);
@@ -98,8 +100,19 @@ nav a {
   padding: 6px 12px;
   border-radius: 4px;
 }
+nav a { display: inline-flex; align-items: center; gap: 6px; }
+nav a svg { width: 17px; height: 17px; flex: none; }
 nav a:hover { color: #fff; background: var(--bar-hover); }
 nav a[aria-current="page"] { color: #fff; background: var(--bar-current); }
+.bar-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.cv-bar {
+  font-size: 0.88rem; font-weight: 700; text-decoration: none;
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 12px; border-radius: 999px; background: #fff; color: var(--bar); border: 1px solid #fff;
+}
+.cv-bar:hover { background: rgba(255, 255, 255, 0.88); text-decoration: none; }
+.cv-bar svg { width: 15px; height: 15px; flex: none; }
+:root[data-theme="dark"] .cv-bar { color: #0a3f80; }
 .theme {
   font: inherit; font-size: 0.88rem; font-weight: 600;
   display: inline-flex; align-items: center; gap: 6px;
@@ -111,7 +124,8 @@ nav a[aria-current="page"] { color: #fff; background: var(--bar-current); }
 
 /* Content */
 main { padding-block: 40px 56px; }
-.view[hidden] { display: none !important; }
+section.block { scroll-margin-top: 64px; margin-top: 56px; }
+section#home { scroll-margin-top: 64px; margin-top: 0; }
 
 /* Intro: text on the left, rectangular portrait on the right */
 .intro { display: flow-root; }
@@ -123,6 +137,7 @@ main { padding-block: 40px 56px; }
 .portrait figcaption { margin-top: 8px; font-size: 0.9rem; color: var(--muted); }
 .avail { margin: 18px 0 0; padding: 10px 14px; border-radius: 6px; background: var(--accent-soft); font-size: 0.97rem; }
 .avail strong { color: var(--accent); }
+.dl-row { margin: 16px 0 0; }
 
 h2.title { font-family: var(--font-display); font-weight: 600; font-size: 2rem; line-height: 1.2; margin: 0 0 20px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
 h3 { font-family: var(--font-display); font-weight: 600; font-size: 1.45rem; margin: 40px 0 14px; }
@@ -139,8 +154,11 @@ ul.plain li { margin-bottom: 6px; }
 .news dt { color: var(--muted); font-size: 0.93rem; font-weight: 600; font-variant-numeric: tabular-nums; padding-top: 1px; }
 .news dd { margin: 0; }
 .news dd b { font-weight: 700; }
+.news dd.off { color: var(--muted); font-size: 0.9rem; }
+.news dd.off b { font-weight: 600; }
 .news .venue-tag { font-size: 0.8rem; padding: 0 8px; white-space: nowrap; }
 .news .badge { font-size: 0.7rem; padding: 1px 8px; vertical-align: 1px; }
+.ico { height: 1.45em; width: auto; vertical-align: -0.35em; margin-left: 2px; }
 .flag { height: 0.85em; width: auto; vertical-align: -0.1em; margin-left: 2px; border-radius: 2px; box-shadow: 0 0 0 1px var(--line); }
 
 /* CV entries */
@@ -241,10 +259,6 @@ footer .contact span { user-select: all; overflow-wrap: anywhere; }
   .news { grid-template-columns: minmax(0, 1fr); gap: 2px; }
   .news dd { margin-bottom: 12px; }
 }
-@media (prefers-reduced-motion: no-preference) {
-  .view { animation: fade 0.18s ease-out; }
-  @keyframes fade { from { opacity: 0.4; } to { opacity: 1; } }
-}
 </style>
 <script>var th="light";try{if(localStorage.getItem("theme")==="dark")th="dark"}catch(e){}document.documentElement.setAttribute("data-theme",th)</script>
 </head>
@@ -253,12 +267,15 @@ footer .contact span { user-select: all; overflow-wrap: anywhere; }
   <div class="wrap">
     <div class="bar">
       <nav aria-label="Main">
-        <a href="#home" data-nav="home">Home</a>
-        <a href="#publications" data-nav="publications">Publications</a>
-        <a href="#cv" data-nav="cv">CV</a>
-        <a href="#teaching" data-nav="teaching">Teaching</a>
+        <a href="#home" data-nav="home">About</a>
+        <a href="mailto:mounir.mdi@proton.me"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Email</a>
+        <a href="https://github.com/MounirMessaoudi"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.285 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>GitHub</a>
+        <a href="https://scholar.google.com/citations?user=E_fav18AAAAJ&amp;hl=fr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 8l10 5 10-5-10-5z"/><path d="M6 10.5v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg>Google Scholar</a>
       </nav>
-      <button class="theme" id="theme" type="button" aria-label="Switch to night mode"></button>
+      <div class="bar-actions">
+        <a class="cv-bar" href="Mounir_Messaoudi_CV.pdf" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4M4 20h16"/></svg>Download CV</a>
+        <button class="theme" id="theme" type="button" aria-label="Switch to night mode"></button>
+      </div>
     </div>
   </div>
 </header>
@@ -266,7 +283,7 @@ footer .contact span { user-select: all; overflow-wrap: anywhere; }
 <main class="wrap">
 
   <!-- HOME -->
-  <section class="view" id="view-home" data-view="home">
+  <section id="home">
     <div class="intro">
       <figure class="portrait">
         <!-- Photo: add a file named photo.jpg next to index.html. Without it, this block is removed. -->
@@ -276,15 +293,20 @@ footer .contact span { user-select: all; overflow-wrap: anywhere; }
         <h1 class="name">Mounir Messaoudi</h1>
         <p class="role">PhD candidate, Team SAIRPICO, Inria, University of Rennes, France</p>
 
-        <p>My name is Mounir. I am a PhD candidate under the supervision of <a href="https://team.inria.fr/serpico/team-members/charles-kervrann-2/">Charles Kervrann</a>. I studied at the CY Tech engineering school, with an exchange at Politecnico di Milano and a final year working at IBM. I then completed the Master of Science in Artificial Intelligence <a href="https://www.masteriasd.eu/en/">IASD</a> at Paris Dauphine University - PSL with École Normale Supérieure (ENS) and MINES Paris. I contributed to projects on the automatic quantification of breast cancer aggressiveness with the Ki67 marker on IHC images, under the supervision of <a href="https://thomaswalter.github.io/">Thomas Walter</a> at the <a href="https://www.minesparis.psl.eu/cbio/en/the-center/">Centre for Computational Biology</a> and Institut Curie.</p>
+        <p>My name is Mounir. I am a PhD candidate in the SAIRPICO team at Inria, University of Rennes, under the supervision of <a href="https://team.inria.fr/serpico/team-members/charles-kervrann-2/">Charles Kervrann</a>.</p>
 
-        <p>My current research focuses on improving methods for the <b>detection and identification of macromolecular complexes</b> in cryo-ET, a crowded, deformed and noisy environment. A recent paper of mine <a data-preview="images/iclr2026.png" href="https://proceedings.iclr.cc/paper_files/paper/2026/file/c9c54ac0dd5e942b99b2b51c297544fd-Paper-Conference.pdf">(Messaoudi et al., ICLR 2026)</a> proposes a method that improves CNN robustness and generalization under photometric perturbations, which are common in biomedical image acquisition. It is also promising for domainshift, for example across denoisers or acquisition processes, as shown in my experiments on cryo-ET and fluorescence microscopy.</p>
+        <p>My studies allowed me to develop <b>expertise in machine learning applied to the biomedical field</b>. I hold an engineering degree in Applied Mathematics and Computer Science from CY Tech, and an M.Sc. in <a href="https://www.masteriasd.eu/en/">Artificial Intelligence, Systems, Data</a> from Paris Dauphine University – PSL. During my Master’s, I collaborated with <a href="https://thomaswalter.github.io/">Thomas Walter</a> at Institut Curie and the <a href="https://www.minesparis.psl.eu/cbio/en/the-center/">Centre for Computational Biology</a> (MINES Paris) on quantification of breast cancer aggressiveness from IHC and HES slides. Beyond the usual challenges of detection and segmentation in histopathology, I worked closely with researchers and pathologists. They taught me their scoring procedures, so that we could reproduce them in fully interpretable models. This experience convinced me to dedicate my research to machine learning for biomedicine, where I believe AI can be genuinely useful.</p>
 
-        <p>I am committed to advancing deep learning for biomedical image analysis, to support diagnosis and expand our knowledge. I enjoy interacting with biologists and physicians to understand the context and develop appropriate and explainable methods. If you would like to collaborate in these areas, feel free to <a href="mailto:mounir.messaoudi45@gmail.com">contact me</a>, I am passionate about it!</p>
+        <p>My PhD addresses the identification and localization of macromolecules in 3D cryo-electron tomograms (cryo-ET). The volumes are very large and extremely noisy. Annotated real data are rare and often incomplete. Acquisition conditions also vary widely between experiments. My work has therefore focused on models that are robust to photometric perturbations, domain shift and acquisition artefacts.</p>
 
-        <p>Outside of research, I enjoy rowing, alone at sunset and in a crew to cross the rivers of Europe!</p>
+        <p>At <a data-preview="images/iclr2026.png" href="https://proceedings.iclr.cc/paper_files/paper/2026/file/c9c54ac0dd5e942b99b2b51c297544fd-Paper-Conference.pdf">ICLR 2026</a>, I introduced an affine-invariant network for robustness to photometric corruptions, such as illumination, contrast variations and bright artefacts. It showed promising generalization across domains without relying on data augmentation, on cryo-ET and fluorescence microscopy. At <a data-preview="images/isbi2026.png" href="https://ieeexplore.ieee.org/abstract/document/11515672">ISBI 2026</a> (oral), I showed that geometric data augmentation in state-of-the-art methods ignores the anisotropy of cryo-ET, and proposed an anisotropy-aware strategy. More recently, I proposed a realistic particle placement to improve simulation and the training of particle pickers. I also developed an improved version of the affine-invariant network, for broader applicability. Both works are under review. I am now developing a universal particle-picking method that biologists can directly apply to their own data.</p>
+
+        <p>For future work, I wish to broaden my work into computational biology and healthcare. I enjoy working in a team and collaborating with specialists from other fields. If you would like to collaborate, feel free to <a href="mailto:mounir.mdi@proton.me">contact me</a>.</p>
+
+        <p>Outside of research, I enjoy rowing and plan to cross rivers of Europe.</p>
 
         <p class="avail"><strong>Available from September 2027</strong></p>
+        <p class="dl-row"><a class="dl" href="Mounir_Messaoudi_CV.pdf" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4M4 20h16"/></svg>Download CV (PDF)</a></p>
       </div>
     </div>
 
@@ -301,35 +323,42 @@ footer .contact span { user-select: all; overflow-wrap: anywhere; }
       <li>Particle picking</li>
       <li>Computational pathology</li>
     </ul>
+  </section>
 
-    <h3>Latest news</h3>
+  <!-- NEWS -->
+  <section class="block" id="news">
+    <h2 class="title">Latest news</h2>
     <dl class="news">
-      <dt>May 2027</dt>
-      <dd>Next stop: <span class="venue-tag">ISBI 2027</span> in Lausanne <svg class="flag" viewBox="0 0 32 32" role="img" aria-label="Switzerland"><rect width="32" height="32" fill="#D52B1E"/><path d="M13 6h6v7h7v6h-7v7h-6v-7H6v-6h7z" fill="#fff"/></svg>, 25–28 May, where I will present a new paper. See you there!</dd>
+      <dt>Apr 2027</dt>
+      <dd class="off">Next stop: the <b>Tulip Crossing</b> <svg class="ico" viewBox="0 0 24 32" role="img" aria-label="Tulip"><path d="M12 20v11" stroke="#2e8b3d" stroke-width="2"/><path d="M12 28c-4 0-6-2-7-5 4 0 6 2 7 5zM12 26c3-1 5-3 6-6-4 0-6 3-6 6z" fill="#2e8b3d"/><path d="M5 5l3.5 4L12 3l3.5 6L19 5c1 8-1 15-7 15S4 13 5 5z" fill="#e0245e"/></svg> in the Netherlands <svg class="flag" viewBox="0 0 30 20" role="img" aria-label="Netherlands"><rect width="30" height="7" fill="#AE1C28"/><rect y="7" width="30" height="6" fill="#fff"/><rect y="13" width="30" height="7" fill="#21468B"/></svg>, by rowing!</dd>
       <dt>Mar 2027</dt>
-      <dd>Next stop: <span class="venue-tag">IABM 2027</span> in Strasbourg, 22–24 March, where I will present our <a data-preview="images/iclr2026.png" href="https://proceedings.iclr.cc/paper_files/paper/2026/file/c9c54ac0dd5e942b99b2b51c297544fd-Paper-Conference.pdf">ICLR paper</a> together with some new work. See you there!</dd>
+      <dd>Next stop: <span class="venue-tag">IABM 2027</span> in Strasbourg, 22–24 March, where I will present some new work. See you there!</dd>
+      <dt>Nov 2026</dt>
+      <dd><span class="badge">Invited talk</span> I am invited to speak at the <b>IGDR</b> (Institute of Genetics and Development of Rennes) on <b>Thursday 26 November 2026</b>: <b>“Deep Learning for Particle Picking in Cryo-ET: Making Models Robust to Anisotropy, Photometric Variability and Data Scarcity”</b>.</dd>
       <dt>Oct 2026</dt>
-      <dd>Back to teaching at the University of Rennes: <b>Introduction to Computer Vision</b> for the M2 Applied Mathematics and Statistics.</dd>
+      <dd>Back to teaching at the University of Rennes: <b>Introduction to Computer Vision</b> for the Master’s in Applied Mathematics and Statistics.</dd>
+      <dt>Sep 2026</dt>
+      <dd class="off">Rowed across Paris in the <b>Traversée de Paris</b> <svg class="ico" viewBox="0 0 24 32" role="img" aria-label="Eiffel Tower"><path d="M12 1l-1.2 7-2 6L6 24l-3 7h4l2-5h6l2 5h4l-3-7-2.8-10-2-6z" fill="#4a3f35"/><path d="M9 14h6M7.4 21h9.2M10 26h4" stroke="#fff" stroke-width="1.2"/></svg>.</dd>
       <dt>Jul 2026</dt>
       <dd>Presented our <a data-preview="images/iclr2026.png" href="https://proceedings.iclr.cc/paper_files/paper/2026/file/c9c54ac0dd5e942b99b2b51c297544fd-Paper-Conference.pdf">ICLR paper</a> at <span class="venue-tag">CAP &amp; RFIAP 2026</span> in Montpellier.</dd>
       <dt>May 2026</dt>
+      <dd class="off">Organizer of <b>Pint of Science 2026</b> in Rennes.</dd>
+      <dt>May 2026</dt>
       <dd>Presented both papers at the <span class="venue-tag">Life Science PhD Symposium</span> (3rd edition).</dd>
       <dt>Apr 2026</dt>
-      <dd>Presented our poster <a data-preview="images/iclr2026.png" href="https://proceedings.iclr.cc/paper_files/paper/2026/file/c9c54ac0dd5e942b99b2b51c297544fd-Paper-Conference.pdf"><b>“Designing Affine-Invariant Neural Networks for Photometric Corruption Robustness and Generalization”</b></a> at <span class="venue-tag">ICLR 2026</span> <span class="badge">Poster session</span> in Rio de Janeiro <svg class="flag" viewBox="0 0 60 42" role="img" aria-label="Brazil"><rect width="60" height="42" fill="#009C3B"/><path d="M30 5 55 21 30 37 5 21z" fill="#FFDF00"/><circle cx="30" cy="21" r="9" fill="#002776"/></svg>. Great discussions and a wonderful city!</dd>
+      <dd>Presented our paper <a data-preview="images/iclr2026.png" href="https://proceedings.iclr.cc/paper_files/paper/2026/file/c9c54ac0dd5e942b99b2b51c297544fd-Paper-Conference.pdf"><b>“Designing Affine-Invariant Neural Networks for Photometric Corruption Robustness and Generalization”</b></a> at <span class="venue-tag">ICLR 2026</span> <span class="badge">Poster session</span> in Rio de Janeiro <svg class="flag" viewBox="0 0 60 42" role="img" aria-label="Brazil"><rect width="60" height="42" fill="#009C3B"/><path d="M30 5 55 21 30 37 5 21z" fill="#FFDF00"/><circle cx="30" cy="21" r="9" fill="#002776"/></svg>.</dd>
       <dt>Apr 2026</dt>
       <dd>Gave an oral presentation of <a data-preview="images/isbi2026.png" href="https://ieeexplore.ieee.org/abstract/document/11515672"><b>“Anisotropy-Aware Strategy for Robust Deep Learning-Based Particle Picking in 3D Cellular Cryo-Electron Tomogram”</b></a> at <span class="venue-tag">ISBI 2026</span> <span class="badge">Oral session</span> in London <svg class="flag" viewBox="0 0 60 30" role="img" aria-label="United Kingdom"><rect width="60" height="30" fill="#012169"/><path d="M0 0 60 30M60 0 0 30" stroke="#fff" stroke-width="6"/><path d="M0 0 60 30M60 0 0 30" stroke="#C8102E" stroke-width="2"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#C8102E" stroke-width="6"/></svg>.</dd>
       <dt>Mar 2026</dt>
-      <dd>Presented our <a data-preview="images/isbi2026.png" href="https://ieeexplore.ieee.org/abstract/document/11515672">ISBI paper</a> at <span class="venue-tag">IABM 2026</span> in Lyon, 9–11 March.</dd>
+      <dd>Presented our <a data-preview="images/isbi2026.png" href="https://ieeexplore.ieee.org/abstract/document/11515672">ISBI paper</a> at <span class="venue-tag">IABM 2026</span> in Lyon.</dd>
       <dt>Jan 2026</dt>
-      <dd>Presented our <a data-preview="images/isbi2026.png" href="https://ieeexplore.ieee.org/abstract/document/11515672">ISBI paper</a> at <span class="venue-tag">AI WILD West 2026</span> in Rennes <svg class="flag" viewBox="0 0 45 27" role="img" aria-label="Brittany"><rect width="45" height="27" fill="#fff"/><rect y="0" width="45" height="3" fill="#000"/><rect y="6" width="45" height="3" fill="#000"/><rect y="12" width="45" height="3" fill="#000"/><rect y="18" width="45" height="3" fill="#000"/><rect y="24" width="45" height="3" fill="#000"/><rect width="22" height="15" fill="#fff"/><circle cx="5" cy="3.5" r="1.1" fill="#000"/><circle cx="11" cy="3.5" r="1.1" fill="#000"/><circle cx="17" cy="3.5" r="1.1" fill="#000"/><circle cx="8" cy="8.5" r="1.1" fill="#000"/><circle cx="14" cy="8.5" r="1.1" fill="#000"/><circle cx="5" cy="13" r="1.1" fill="#000"/><circle cx="11" cy="13" r="1.1" fill="#000"/><circle cx="17" cy="13" r="1.1" fill="#000"/></svg>, close to home this time.</dd>
+      <dd>Presented our <a data-preview="images/isbi2026.png" href="https://ieeexplore.ieee.org/abstract/document/11515672">ISBI paper</a> at <span class="venue-tag">AI WILD West 2026</span> in Rennes <svg class="flag" viewBox="0 0 45 27" role="img" aria-label="Brittany"><rect width="45" height="27" fill="#fff"/><rect y="0" width="45" height="3" fill="#000"/><rect y="6" width="45" height="3" fill="#000"/><rect y="12" width="45" height="3" fill="#000"/><rect y="18" width="45" height="3" fill="#000"/><rect y="24" width="45" height="3" fill="#000"/><rect width="22" height="15" fill="#fff"/><circle cx="5" cy="3.5" r="1.1" fill="#000"/><circle cx="11" cy="3.5" r="1.1" fill="#000"/><circle cx="17" cy="3.5" r="1.1" fill="#000"/><circle cx="8" cy="8.5" r="1.1" fill="#000"/><circle cx="14" cy="8.5" r="1.1" fill="#000"/><circle cx="5" cy="13" r="1.1" fill="#000"/><circle cx="11" cy="13" r="1.1" fill="#000"/><circle cx="17" cy="13" r="1.1" fill="#000"/></svg>.</dd>
     </dl>
   </section>
 
   <!-- PUBLICATIONS -->
-  <section class="view" id="view-publications" data-view="publications" hidden>
+  <section class="block" id="publications">
     <h2 class="title">Publications</h2>
-    <p>Full list on <a href="https://scholar.google.com/citations?user=E_fav18AAAAJ&amp;hl=fr">Google Scholar</a>.</p>
-
     <article class="pub">
       <div class="row pub-top"><span class="venue-tag">ISBI 2026</span><span class="badge">Oral session</span></div>
       <p class="pub-title"><a data-preview="images/isbi2026.png" href="https://ieeexplore.ieee.org/abstract/document/11515672">Anisotropy-Aware Strategy for Robust Deep Learning-Based Particle Picking in 3D Cellular Cryo-Electron Tomogram</a></p>
@@ -363,85 +392,22 @@ footer .contact span { user-select: all; overflow-wrap: anywhere; }
     </article>
   </section>
 
-  <!-- CV -->
-  <section class="view" id="view-cv" data-view="cv" hidden>
-    <div class="title-row"><h2 class="title">Resume</h2><a class="dl" href="Mounir_Messaoudi_CV.pdf" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4M4 20h16"/></svg>Download CV (PDF)</a></div>
-
-    <h3>Education</h3>
-    <div class="entry">
-      <div class="entry-head"><p class="entry-title">PhD in Deep Learning and Biomedical Image Analysis</p><span class="entry-date">2024 – 2027 (expected)</span></div>
-      <p class="entry-sub">Inria, University of Rennes · SAIRPICO team · Rennes, France</p>
-      <ul>
-        <li>Thesis topic: deep learning methods for the identification and localization of macromolecules in 3D cryo-electron tomograms.</li>
-        <li>Supervisor: Charles Kervrann.</li>
-      </ul>
-    </div>
-    <div class="entry">
-      <div class="entry-head"><p class="entry-title">M.Sc. in Artificial Intelligence, Systems, Data (M2 IASD)</p><span class="entry-date">2022 – 2023</span></div>
-      <p class="entry-sub">Paris Dauphine University – PSL, with École Normale Supérieure and MINES Paris · Paris, France</p>
-    </div>
-    <div class="entry">
-      <div class="entry-head"><p class="entry-title">M.Sc. 1 in Computer Science and Engineering (Erasmus)</p><span class="entry-date">2021</span></div>
-      <p class="entry-sub">Polytechnic University of Milan · Milan, Italy</p>
-    </div>
-    <div class="entry">
-      <div class="entry-head"><p class="entry-title">Engineering Degree, Applied Mathematics and Computer Science (Data Science)</p><span class="entry-date">2017 – 2022</span></div>
-      <p class="entry-sub">CY Tech · Cergy, France</p>
-    </div>
-
-    <h3>Research and professional experience</h3>
-    <div class="entry">
-      <div class="entry-head"><p class="entry-title">Research Intern in Computer Vision</p><span class="entry-date">03/2023 – 09/2023</span></div>
-      <p class="entry-sub">Institut Curie and Centre for Computational Biology (CBIO), MINES Paris · Paris, France</p>
-      <ul>
-        <li>Master's thesis: deep learning method to quantify breast cancer aggressiveness from IHC images.</li>
-        <li>Supervisor: <a href="https://thomaswalter.github.io/">Thomas Walter</a>.</li>
-      </ul>
-    </div>
-    <div class="entry">
-      <div class="entry-head"><p class="entry-title">Data Scientist</p><span class="entry-date">09/2021 – 09/2022</span></div>
-      <p class="entry-sub">IBM Interactive, an IBM Company · Paris, France</p>
-      <ul><li>Graduation thesis (engineering degree): diagnostics and automatic enhancement of IBM Watson chatbots.</li></ul>
-    </div>
-
-    <h3>Skills, languages and interests</h3>
-    <ul class="plain">
-      <li><b>Technical skills:</b> Python, PyTorch, TensorFlow, Git/GitHub.</li>
-      <li><b>Languages:</b> French (fluent), English (fluent).</li>
-      <li><b>Interests:</b> Rowing (Paris Crossing 2026; Amsterdam Tulip Crossing 2027, planned) and swimming.</li>
-    </ul>
-
-    <h3>References</h3>
-    <div class="ref">
-      <div><p class="who">Charles Kervrann</p><p class="role-s">PhD supervisor</p></div>
-      <p class="mail">charles.kervrann@inria.fr</p>
-    </div>
-    <div class="ref">
-      <div><p class="who">Anaïs Badoual</p><p class="role-s">Permanent member of the SAIRPICO team, co-author</p></div>
-      <p class="mail">anais.badoual@inria.fr</p>
-    </div>
-    <div class="ref">
-      <div><p class="who">Sébastien Herbreteau</p><p class="role-s">Co-author</p></div>
-      <p class="mail">sebastien.herbreteau@ensai.fr</p>
-    </div>
-  </section>
-
   <!-- TEACHING -->
-  <section class="view" id="view-teaching" data-view="teaching" hidden>
+  <section class="block" id="teaching">
     <h2 class="title">Teaching</h2>
     <div class="entry">
       <div class="entry-head"><p class="entry-title">Introduction to Computer Vision</p><span class="entry-date">2024–2025, 2025–2026</span></div>
-      <p class="entry-sub">CY Tech engineering school · M2 Mathematical Engineering, Data Science</p>
+      <p class="entry-sub">CY Tech engineering school · Master’s in Mathematical Engineering, Data Science</p>
       <ul><li>Lectures, 20 h per year.</li></ul>
     </div>
     <div class="entry">
       <div class="entry-head"><p class="entry-title">Introduction to Computer Vision</p><span class="entry-date">2025–2026, 2026–2027</span></div>
-      <p class="entry-sub">University of Rennes · M2 Applied Mathematics and Statistics</p>
+      <p class="entry-sub">University of Rennes · Master’s in Applied Mathematics and Statistics</p>
       <ul><li>Lectures, 20 h per year.</li></ul>
     </div>
     <div class="entry">
       <div class="entry-head"><p class="entry-title">Python</p><span class="entry-date">2025</span></div>
-      <p class="entry-sub">University of Rennes · L3 Computer Science, ISTIC</p>
+      <p class="entry-sub">University of Rennes · Third-year Bachelor’s in Computer Science, ISTIC</p>
       <ul><li>Practical sessions.</li></ul>
     </div>
   </section>
@@ -449,35 +415,13 @@ footer .contact span { user-select: all; overflow-wrap: anywhere; }
 
 <footer>
   <div class="wrap">
-    <div class="social">
-      <a href="mailto:mounir.messaoudi45@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Email</a>
-      <a href="https://www.linkedin.com/in/mounir-messaoudi-9a11271a6"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.125 2.062 2.062 0 0 1 0 4.125zM7.119 20.452H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn</a>
-      <a href="https://scholar.google.com/citations?user=E_fav18AAAAJ&amp;hl=fr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 8l10 5 10-5-10-5z"/><path d="M6 10.5v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg>Google Scholar</a>
-      <a href="https://github.com/MounirMessaoudi"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.285 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>GitHub</a>
-    </div>
-    <p class="contact">Best way to reach me is via email: <span>mounir.messaoudi45@gmail.com</span></p>
+    <p class="contact">Best way to reach me is via email: <span>mounir.mdi@proton.me</span></p>
     <p>© 2026 Mounir Messaoudi · Inria, University of Rennes</p>
   </div>
 </footer>
 
 <script>
 (function () {
-  var views = ["home", "cv", "publications", "teaching"];
-  function show() {
-    var name = (location.hash || "").replace("#", "");
-    if (views.indexOf(name) === -1) name = "home";
-    document.querySelectorAll("[data-view]").forEach(function (el) {
-      el.hidden = el.getAttribute("data-view") !== name;
-    });
-    document.querySelectorAll("[data-nav]").forEach(function (a) {
-      if (a.getAttribute("data-nav") === name) a.setAttribute("aria-current", "page");
-      else a.removeAttribute("aria-current");
-    });
-    window.scrollTo(0, 0);
-  }
-  window.addEventListener("hashchange", show);
-  show();
-
   // Light / night mode toggle. Follows the system until the visitor chooses.
   var root = document.documentElement;
   var tbtn = document.getElementById("theme");
@@ -556,7 +500,6 @@ footer .contact span { user-select: all; overflow-wrap: anywhere; }
     showFor(a, r.left, r.bottom);
   });
   document.addEventListener("focusout", hide);
-  window.addEventListener("hashchange", hide);
 })();
 </script>
 </body>
