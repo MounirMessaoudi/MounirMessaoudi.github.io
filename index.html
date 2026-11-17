@@ -12,7 +12,7 @@
 <meta property="og:url" content="https://mounirmessaoudi.github.io/">
 <meta name="twitter:card" content="summary">
 <!-- Google Search Console: paste the "google-site-verification" meta tag here when asked. -->
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Person", "name": "Mounir Messaoudi", "jobTitle": "PhD candidate", "url": "https://mounirmessaoudi.github.io/", "affiliation": {"@type": "Organization", "name": "Inria, SAIRPICO team"}, "alumniOf": [{"@type": "Organization", "name": "Paris Dauphine University - PSL"}, {"@type": "Organization", "name": "CY Tech"}], "knowsAbout": ["Deep learning", "Biomedical image analysis", "Cryo-electron tomography", "Robustness", "Invariance", "Generalization"], "sameAs": ["https://www.linkedin.com/in/mounir-messaoudi-9a11271a6", "https://scholar.google.com/citations?user=E_fav18AAAAJ&hl=fr", "https://github.com/MounirMessaoudi"]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Person", "name": "Mounir Messaoudi", "jobTitle": "PhD candidate", "url": "https://mounirmessaoudi.github.io/", "affiliation": {"@type": "Organization", "name": "Inria, SAIRPICO team"}, "alumniOf": [{"@type": "Organization", "name": "Paris Dauphine University - PSL"}, {"@type": "Organization", "name": "CY Tech"}], "knowsAbout": ["Deep learning", "Biomedical image analysis", "Cryo-electron tomography", "Robustness", "Invariance", "Generalization"], "sameAs": ["https://scholar.google.com/citations?user=E_fav18AAAAJ&hl=fr", "https://github.com/MounirMessaoudi"]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -122,6 +122,12 @@ h2 {
 .news-toggle[aria-expanded="true"] svg { transform: rotate(180deg); }
 @media (prefers-reduced-motion: reduce) { .news-more, .news-toggle svg { transition: none; } }
 
+.nw { white-space: nowrap; }
+.news-table .minor { color: var(--muted); font-weight: 400; }
+.row-emoji { font-size: 0.95em; }
+.ico { height: 1.3em; width: auto; vertical-align: -0.3em; margin-left: 1px; }
+.flag { height: 0.85em; width: auto; vertical-align: -0.1em; margin-left: 2px; border-radius: 2px; box-shadow: 0 0 0 1px var(--line); }
+
 /* Publications */
 .pubs { list-style: none; margin: 0; padding: 0; }
 .pub { display: flex; gap: 20px; margin-bottom: 26px; }
@@ -147,11 +153,8 @@ h2 {
 .video video { display: block; width: 100%; margin-top: 10px; border-radius: 4px; border: 1px solid var(--line); background: #000; }
 
 /* Contact */
-.contact p { margin: 0 0 12px; }
-.social { display: flex; gap: 18px; margin-top: 8px; }
-.social a { color: var(--fg); display: inline-flex; }
-.social a:hover { color: var(--hover); }
-.social i { font-size: 1.4rem; line-height: 1; }
+.contact { margin-top: 44px; text-align: center; }
+.contact p { margin: 0; }
 
 footer { border-top: 1px solid var(--line); color: var(--muted); font-size: 0.8rem; text-align: center; padding: 14px 0 20px; }
 
@@ -205,11 +208,11 @@ footer { border-top: 1px solid var(--line); color: var(--muted); font-size: 0.8r
   <h2>news</h2>
   <table class="news-table">
     <tbody>
-      <tr><th scope="row">Apr 2027</th><td>Next stop: the <b>Tulip Crossing</b> in the Netherlands, by rowing!</td></tr>
-      <tr><th scope="row">Mar 2027</th><td>I will present new work at <b>IABM 2027</b> in Strasbourg, 22–24 March.</td></tr>
-      <tr><th scope="row">Nov 2026</th><td>Invited talk at the <b>Biological Image Analysis Session (BIS 2.0)</b>, IGDR, Rennes, on 26 November.</td></tr>
+      <tr><th scope="row" class="minor">Apr 2027</th><td class="minor">Next stop: the <span class="nw">Tulip Crossing <svg class="ico" viewBox="0 0 24 32" role="img" aria-label="Tulip"><path d="M12 20v11" stroke="#2e8b3d" stroke-width="2"/><path d="M12 28c-4 0-6-2-7-5 4 0 6 2 7 5zM12 26c3-1 5-3 6-6-4 0-6 3-6 6z" fill="#2e8b3d"/><path d="M5 5l3.5 4L12 3l3.5 6L19 5c1 8-1 15-7 15S4 13 5 5z" fill="#e0245e"/></svg></span> in the Netherlands, by rowing! <span class="row-emoji" role="img" aria-label="rowing">🚣</span></td></tr>
+      <tr><th scope="row">Mar 2027</th><td>I will present new work at <b>IABM 2027</b> in Strasbourg.</td></tr>
+      <tr><th scope="row">Nov 2026</th><td>Invited talk at the <b>Biological Image Analysis Session (BIS 2.0)</b>, IGDR, Rennes.</td></tr>
       <tr><th scope="row">Oct 2026</th><td>Back to teaching <b>Introduction to Computer Vision</b> at the University of Rennes.</td></tr>
-      <tr><th scope="row">Sep 2026</th><td>Rowed across Paris in the <b>Traversée de Paris</b>.</td></tr>
+      <tr><th scope="row" class="minor">Sep 2026</th><td class="minor">Rowed across Paris in the <span class="nw">Traversée de Paris <svg class="ico" viewBox="0 0 24 32" role="img" aria-label="Eiffel Tower"><path d="M12 1l-1.2 7-2 6L6 24l-3 7h4l2-5h6l2 5h4l-3-7-2.8-10-2-6z" fill="#4a3f35"/><path d="M9 14h6M7.4 21h9.2M10 26h4" stroke="#fff" stroke-width="1.2"/></svg></span> <span class="row-emoji" role="img" aria-label="rowing">🚣</span></td></tr>
     </tbody>
   </table>
   <div class="news-more no-js" id="news-more">
@@ -218,8 +221,8 @@ footer { border-top: 1px solid var(--line); color: var(--muted); font-size: 0.8r
         <tr><th scope="row">Jul 2026</th><td>Presented our ICLR paper at <b>CAP &amp; RFIAP 2026</b> in Montpellier.</td></tr>
         <tr><th scope="row">May 2026</th><td>Organizer of <b>Pint of Science 2026</b> in Rennes.</td></tr>
         <tr><th scope="row">May 2026</th><td>Presented both papers at the <b>Life Science PhD Symposium</b> (3rd edition) in Rennes.</td></tr>
-        <tr><th scope="row">Apr 2026</th><td>Poster presentation of our paper at <b>ICLR 2026</b> in Rio de Janeiro.</td></tr>
-        <tr><th scope="row">Apr 2026</th><td>Oral presentation of our paper at <b>ISBI 2026</b> in London.</td></tr>
+        <tr><th scope="row">Apr 2026</th><td>Poster presentation of our paper at <b>ICLR 2026</b> in Rio de <span class="nw">Janeiro <svg class="flag" viewBox="0 0 60 42" role="img" aria-label="Brazil"><rect width="60" height="42" fill="#009C3B"/><path d="M30 5 55 21 30 37 5 21z" fill="#FFDF00"/><circle cx="30" cy="21" r="9" fill="#002776"/></svg></span>.</td></tr>
+        <tr><th scope="row">Apr 2026</th><td>Oral presentation of our paper at <b>ISBI 2026</b> in <span class="nw">London <svg class="flag" viewBox="0 0 60 30" role="img" aria-label="United Kingdom"><rect width="60" height="30" fill="#012169"/><path d="M0 0 60 30M60 0 0 30" stroke="#fff" stroke-width="6"/><path d="M0 0 60 30M60 0 0 30" stroke="#C8102E" stroke-width="2"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#C8102E" stroke-width="6"/></svg></span>.</td></tr>
         <tr><th scope="row">Mar 2026</th><td>Presented our ISBI paper at <b>IABM 2026</b> in Lyon.</td></tr>
         <tr><th scope="row">Jan 2026</th><td>Presented our ISBI paper at <b>AI WILD West 2026</b> in Rennes.</td></tr>
       </tbody>
@@ -264,15 +267,8 @@ footer { border-top: 1px solid var(--line); color: var(--muted); font-size: 0.8r
     </li>
   </ol>
 
-  <h2>contact</h2>
   <div class="contact">
     <p>The best way to reach me is via email: <a href="mailto:mounir.mdi@proton.me">mounir.mdi@proton.me</a></p>
-    <div class="social">
-      <a href="mailto:mounir.mdi@proton.me" aria-label="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a>
-      <a href="https://scholar.google.com/citations?user=E_fav18AAAAJ&amp;hl=fr" aria-label="Google Scholar"><i class="ai ai-google-scholar" aria-hidden="true"></i></a>
-      <a href="https://github.com/MounirMessaoudi" aria-label="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>
-      <a href="https://www.linkedin.com/in/mounir-messaoudi-9a11271a6" aria-label="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a>
-    </div>
   </div>
 
 </main>
