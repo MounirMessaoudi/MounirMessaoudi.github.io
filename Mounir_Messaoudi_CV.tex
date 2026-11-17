@@ -1,0 +1,150 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[top=1.4cm,bottom=1.4cm,left=1.9cm,right=1.9cm]{geometry}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{titlesec}
+\usepackage{xcolor}
+
+\definecolor{accent}{HTML}{1F3A5F}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlist[itemize]{leftmargin=1.2em, itemsep=2pt, topsep=2pt, parsep=0pt}
+
+\titleformat{\section}{\large\bfseries\color{accent}}{}{0em}{}[\vspace{-0.6em}\color{accent}\rule{\linewidth}{0.5pt}]
+\titlespacing*{\section}{0pt}{12pt}{5pt}
+
+% \entry{title}{date}{institution}{location}
+\newcommand{\entry}[4]{%
+  \textbf{#1} \hfill #2\\
+  \textit{#3} \hfill #4\par\vspace{1pt}}
+
+% \talk{date}{event, location}
+\newcommand{\talk}[2]{\item #2 \hfill #1}
+
+\begin{document}
+
+% ---------- Header ----------
+\begin{center}
+  {\LARGE\bfseries Mounir Messaoudi}\\[4pt]
+  PhD candidate in Machine Learning, Inria Rennes \quad|\quad \textbf{Available from September 2027}\\[4pt]
+  \href{mailto:mounir.mdi@proton.me}{mounir.mdi@proton.me} \quad|\quad
+  \href{https://scholar.google.com/citations?user=E_fav18AAAAJ&hl=fr}{Google Scholar} \quad|\quad
+  \href{https://github.com/MounirMessaoudi}{GitHub} \quad|\quad
+  \href{https://mounirmessaoudi.github.io/}{Website}
+\end{center}
+
+% ---------- Research interests ----------
+\section{Research Interests}
+
+Robust and usable deep learning methods for 3D biomedical image analysis: detection and segmentation in large, noisy volumes, robustness to acquisition variability and domain shift, and rigorous benchmarking. Applications to cryo-electron tomography, fluorescence microscopy and computational pathology, with tools designed to be used directly by biologists.
+
+% ---------- Education ----------
+\section{Education}
+
+\entry{PhD in Deep Learning and Biomedical Image Analysis}{2024 -- 2027 (expected)}
+  {Inria, University of Rennes -- SAIRPICO team}{Rennes, France}
+Improving deep learning methods for the identification and localization of macromolecules in 3D cryo-electron tomograms; development of a universal particle picker for biologists. Supervisor: Charles Kervrann.
+
+\vspace{6pt}
+\entry{M.Sc.\ in Artificial Intelligence, Systems, Data}{2022 -- 2023}
+  {Paris Dauphine University -- PSL, with \'Ecole Normale Sup\'erieure and MINES Paris}{Paris, France}
+
+\vspace{6pt}
+\entry{M.Sc.\ in Computer Science and Engineering (first year, Erasmus)}{2021}
+  {Politecnico di Milano}{Milan, Italy}
+
+\vspace{6pt}
+\entry{Engineering Degree, Applied Mathematics and Computer Science}{2017 -- 2022}
+  {CY Tech}{Cergy, France}
+
+% ---------- Professional experience ----------
+\section{Research and Professional Experience}
+
+\entry{Research Intern in Computer Vision}{03/2023 -- 09/2023}
+  {Institut Curie and Centre for Computational Biology (CBIO), MINES Paris}{Paris, France}
+\begin{itemize}[label={}, leftmargin=0pt]
+  \item Deep learning method to quantify breast cancer aggressiveness from IHC and HES images.
+\end{itemize}
+
+\vspace{6pt}
+\entry{Data Scientist (work-study, final year of engineering degree)}{09/2021 -- 09/2022}
+  {IBM}{Paris, France}
+\begin{itemize}[label={}, leftmargin=0pt]
+  \item Diagnostics and automatic enhancement of IBM Watson chatbots.
+\end{itemize}
+
+% ---------- Publications ----------
+\section{Publications}
+
+\begin{enumerate}[label={[\arabic*]}, leftmargin=2.2em, itemsep=6pt, topsep=3pt, parsep=0pt]
+
+\item {\bfseries Designing Affine-Invariant Neural Networks for Photometric Corruption Robustness and Generalization}\\[1pt]
+\textbf{M.~Messaoudi}, Q.~Rapilly, S.~Herbreteau, A.~Badoual, C.~Kervrann\\[1pt]
+\textit{International Conference on Learning Representations (ICLR)}, 2026 \hfill {\small\textcolor{accent}{\textbf{Poster session}}}\\[1pt]
+{\small Links: \href{https://proceedings.iclr.cc/paper_files/paper/2026/file/c9c54ac0dd5e942b99b2b51c297544fd-Paper-Conference.pdf}{[PDF]}}
+
+\item {\bfseries Anisotropy-Aware Strategy for Robust Deep Learning-Based Particle Picking in 3D Cellular Cryo-Electron Tomogram}\\[1pt]
+\textbf{M.~Messaoudi}, C.~Kervrann\\[1pt]
+\textit{2026 IEEE 23rd International Symposium on Biomedical Imaging (ISBI)}, 2026 \hfill {\small\textcolor{accent}{\textbf{Oral session}}}\\[1pt]
+{\small Links: \href{https://ieeexplore.ieee.org/abstract/document/11515672}{[PDF]} \href{https://doi.org/10.1109/ISBI61048.2026.11515672}{[DOI]}}
+
+\item {\bfseries Spatial Point Processes for Cryo-ET Simulation: Validating Particle Placement and Its Effect on Particle Picking}\\[1pt]
+\textbf{M.~Messaoudi}, F.~Lavancier, E.~Moebel, F.~Fatmaoui, I.~Tanoz, M.~Eltsov, C.~Kervrann\\[1pt]
+\textit{Under review}, 2026
+
+\end{enumerate}
+
+% ---------- Talks ----------
+\newpage
+\section{Talks and Presentations}
+
+\begin{itemize}[label={}, leftmargin=0pt, itemsep=3pt]
+  \talk{11/2026}{\textbf{Invited talk}, Biological Image Analysis Session (BIS 2.0), IGDR, Rennes}
+  \talk{07/2026}{CAP \& RFIAP 2026, Montpellier -- Poster session}
+  \talk{05/2026}{Life Science PhD Symposium (3rd edition), Rennes -- Poster session}
+  \talk{04/2026}{ICLR 2026, Rio de Janeiro -- \textbf{Poster session}}
+  \talk{04/2026}{ISBI 2026, London -- \textbf{Oral session}}
+  \talk{03/2026}{IABM 2026, Lyon -- Poster session}
+  \talk{01/2026}{AI WILD West 2026, Rennes -- Poster session}
+\end{itemize}
+
+% ---------- Academic service ----------
+\section{Academic Service}
+
+\begin{itemize}[label={}, leftmargin=0pt]
+  \item \textbf{Reviewer:} ICLR 2027, AAAI 2027.\end{itemize}
+
+% ---------- Teaching ----------
+\section{Teaching}
+
+\begin{itemize}[label={}, leftmargin=0pt]
+  \item \textbf{Lectures:} \textit{Introduction to Computer Vision} (20h per year), Master's in Mathematical Engineering (CY Tech) and Master's in Applied Mathematics and Statistics (University of Rennes), 2025 and 2026.
+  \item \textbf{Practical sessions:} Python, third-year Bachelor's in Computer Science, ISTIC, University of Rennes (2025).
+  %\item \textbf{Tutoring:} Mathematics and sciences tutor for underprivileged high-school and engineering students.
+\end{itemize}
+
+% ---------- Skills, languages & interests ----------
+\section{Skills and Languages}
+
+\begin{itemize}
+\item \textbf{Machine learning}: invariant/equivariant architectures, domain generalization, robustness, localization, detection, classification and segmentation.
+\item \textbf{Programming}: Python, PyTorch, Tensorflow, GPU clusters, Git, Linux.
+  \item \textbf{Imaging modalities:} 3D cryo-electron tomography, histopathology (IHC, HES), fluorescence microscopy.
+  \item \textbf{Languages:} French (fluent), English (fluent).
+\end{itemize}
+
+% ---------- References ----------
+\section{References}
+
+\begin{itemize}[label={}, leftmargin=0pt]
+  \item \textbf{Charles Kervrann} {\small (Inria Rennes)} \quad \href{mailto:charles.kervrann@inria.fr}{charles.kervrann@inria.fr} \hfill \textit{PhD supervisor}
+  \item \textbf{Thomas Walter} {\small (Institut Curie / Mines Paris)} \quad \href{mailto:thomas.walter@minesparis.psl.eu}{thomas.walter@minesparis.psl.eu} \hfill \textit{Master's thesis supervisor}
+  \item \textbf{S\'ebastien Herbreteau} {\small (ENSAI)} \quad \href{mailto:sebastien.herbreteau@ensai.fr}{sebastien.herbreteau@ensai.fr} \hfill \textit{Co-author}
+\end{itemize}
+
+\end{document}
